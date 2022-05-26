@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+   <script type="text/babel"> 
+  //  输入类的DOM，比如input，随着输入可以把数据维护到状态里，然后需要用的时候再从状态里读取数据
+      class Demo extends React.Component{
+        state = {
+          username:'',
+          password:''
+        }
+
+        handleSubmit = (event) => {
+          event.preventDefault();
+          const {username, password} = this.state
+          alert(`你输入的名字是${username}，密码是${password}`)
+        }
+
+        saveUsername = (event) => {
+          this.setState({username:event.target.value})
+        }
+
+        savePassword = (event) => {
+          this.setState({password:event.target.value})
+        }
+
+        render(){
+          return (
+            <form  onSubmit={this.handleSubmit}>
+              用户名：<input onChange={this.saveUsername} type="text" name="username"/>
+              密码：<input onChange={this.savePassword} type="password" name="password"/>
+              <button>登录</button>
+            </form>
+          )
+        }
+
+      }
+      // 2.渲染组件到页面
+      ReactDOM.render(<Demo/>, document.getElementById('test'))
+
+      
+  </script>
+</body>
+</html>

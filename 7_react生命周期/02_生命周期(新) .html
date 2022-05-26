@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+   <script type="text/babel"> 
+      class Count extends React.Component{
+        // 构造器
+        constructor(props){
+          console.log('count-constructor');
+          super(props)
+          this.state = {
+            count:1
+          }
+        }
+
+        add = () => {
+          const {count} = this.state
+          this.setState({count:count+1})
+        }
+
+        destory = () => {
+          ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+        }
+
+        force = () => {
+          this.forceUpdate()
+        }
+
+        static getDerivedStateFromProps(props,state){
+          console.log('count-getDerivedStateFromProps',props,state);
+          // return props
+          return null
+        }
+        
+
+        // 组件挂载完毕的钩子
+        componentDidMount(){
+          console.log('count-componentDidMount');
+        }
+
+        // 控制组件更新的‘阀门’
+        shouldComponentUpdate(){
+          console.log('count-shouldComponentUpdate');
+          return true
+        }
+
+        // 在更新之前获取快照
+        getSnapshotBeforeUpdate(preprops, prestate){
+          console.log('count-getSnapshotBeforeUpdate', preprops, prestate);
+          return null
+        }
+
+        // 组件更新完毕
+        componentDidUpdate(){
+          console.log('count-componentDidUpdate');
+        }
+        
+        // 组件将要卸载的钩子
+        componentWillUnmount(){
+          console.log('count-componentWillUnmount');
+        }
+
+        render(){
+          console.log('count-render');
+          const {count} = this.state
+          return (
+            <div>
+              <h2>当前求和为：{count}</h2>
+              <button onClick={this.add}>点我+1</button>
+              <button onClick={this.destory}>卸载组件</button>
+              <button onClick={this.force}>不更改任何状态中的数据，强制更新</button>
+            </div>
+          )
+        }
+      }
+
+      ReactDOM.render(<Count count={199}/>, document.getElementById('test'))
+
+  </script>
+</body>
+</html>

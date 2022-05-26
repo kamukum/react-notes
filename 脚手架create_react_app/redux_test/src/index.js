@@ -1,0 +1,20 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import store from './redux/store'
+
+import { Provider } from 'react-redux'
+
+ReactDOM.render(
+  // <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)
+
+
+// 使用react-redux之后可以不写
+// store.subscribe(() => {
+//   ReactDOM.render(<App/>, document.getElementById('root'))
+// })

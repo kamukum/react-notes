@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+  <div id="test1"></div>
+  <div id="test2"></div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+
+   <script type="text/babel"> 
+      class Person extends React.Component{
+        render(){
+          const {name, age, gender} = this.props
+          // props是只读的
+          return (
+            <ul>
+              <li>姓名：{name}</li>  
+              <li>性别：{gender}</li>  
+              <li>年龄：{age + 1}</li>  
+            </ul>
+          )
+        }
+      }
+      // 对标签属性进行类型，必要性的限制
+      Person.propTypes = {
+         name:PropTypes.string.isRequired,
+         age:PropTypes.number,
+         gender:PropTypes.string,
+         speak:PropTypes.func
+      }
+      // 指定默认标签属性值
+      Person.defaultProps = {
+        gender:'man',
+        age:18
+      }
+      // 2.渲染组件到页面
+      ReactDOM.render(<Person name='tom' speak = {speak}/>, document.getElementById('test'))
+      ReactDOM.render(<Person name='jerry' age={19} gender='man'/>, document.getElementById('test1'))
+
+      const p = {name:'lucy', age:18, gender:'women'}
+      ReactDOM.render(<Person {...p}/>, document.getElementById('test2'))
+
+      function speak(){
+        console.log('shuohuale');
+      }
+  </script>
+</body>
+</html>
